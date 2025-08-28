@@ -138,15 +138,11 @@
         <div id="loading" class="loading">Carregando cardápio...</div>
         <div id="error" class="error" style="display: none;"></div>
         
-        <div class="menu" id="menu">
-            <!-- Pizza cards will be added here dynamically -->
-        </div>
+        <div class="menu" id="menu"></div>
         
         <div class="cart" id="cart">
             <h2>Seu Pedido</h2>
-            <div id="cart-items">
-                <!-- Cart items will be added here dynamically -->
-            </div>
+            <div id="cart-items"></div>
             <div class="cart-total">
                 <span>Total:</span>
                 <span id="cart-total">R$ 0,00</span>
@@ -156,14 +152,12 @@
     </div>
 
     <script>
-        // Array to store pizzas fetched from the API
         let pizzas = [];
         const cart = [];
         
-        // Function to fetch pizzas from the backend API
         async function fetchPizzas() {
             try {
-                const response = await fetch('http://localhost:5001/api/pizzas');
+                const response = await fetch('/api/pizzas');
                 if (!response.ok) {
                     throw new Error('Falha ao carregar o cardápio. Por favor, tente novamente mais tarde.');
                 }
@@ -179,7 +173,6 @@
             }
         }
 
-        // Function to render the menu
         function renderMenu() {
             const menuElement = document.getElementById('menu');
             menuElement.innerHTML = '';
@@ -198,7 +191,6 @@
             });
         }
 
-        // Function to add a pizza to the cart
         function addToCart(pizzaId) {
             const pizza = pizzas.find(p => p.id === pizzaId);
             if (pizza) {
@@ -218,7 +210,6 @@
             }
         }
 
-        // Function to remove a pizza from the cart
         function removeFromCart(pizzaId) {
             const index = cart.findIndex(item => item.id === pizzaId);
             if (index !== -1) {
@@ -231,7 +222,6 @@
             }
         }
 
-        // Function to render the cart
         function renderCart() {
             const cartItemsElement = document.getElementById('cart-items');
             const cartTotalElement = document.getElementById('cart-total');
@@ -262,7 +252,6 @@
             cartTotalElement.textContent = `R$ ${total.toFixed(2)}`;
         }
 
-        // Function to handle checkout
         async function checkout() {
             if (cart.length === 0) {
                 alert('Seu pedido está vazio!');
@@ -270,14 +259,12 @@
             }
             
             try {
-                // Format cart items for the API
                 const items = cart.map(item => ({
                     pizza_id: item.id,
                     quantidade: item.quantity
                 }));
                 
-                // Send order to the backend
-                const response = await fetch('http://localhost:5001/api/pedidos', {
+                const response = await fetch('/api/pedidos', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -304,10 +291,8 @@
             }
         }
 
-        // Add event listener to checkout button
         document.getElementById('checkout-btn').addEventListener('click', checkout);
 
-        // Initialize the app
         fetchPizzas();
         renderCart();
     </script>
