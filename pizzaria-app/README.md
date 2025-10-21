@@ -1,5 +1,5 @@
 # PENDENCIAS TÉCNICAS
-Prezado ilustre DevOps, Não consegui criar o DockerFile para o projeto backend, pode me ajudaR?!
+Prezado ilustre DevOps, Não consegui criar o DockerFile para o projeto backend, pode me ajudaR?
 
 Objetivos:
 - Criar o Dockerfile para o projeto Backend 
